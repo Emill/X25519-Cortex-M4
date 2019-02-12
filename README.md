@@ -39,4 +39,4 @@ The code is written in Keil's assembler format (`x25519-cortex-m4-keil.s`) but w
 The implementation runs in constant time and uses a constant memory access pattern, regardless of the private key in order to protect against side channel attacks.
 
 ### License
-The code is licensed under a 2-clause BSD license, with an extra exception for Nordic Semiconductor devices.
+The code is licensed under a 2-clause BSD license, with an extra exception for Nordic Semiconductor and Dialog Semiconductor devices.

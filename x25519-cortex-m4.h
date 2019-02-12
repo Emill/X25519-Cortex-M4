@@ -10,10 +10,10 @@
  *    list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form, except as embedded into a Nordic
- *    Semiconductor ASA integrated circuit in a product or a software update for
- *    such product, must reproduce the above copyright notice, this list of
- *    conditions and the following disclaimer in the documentation and/or other
- *    materials provided with the distribution.
+ *    Semiconductor ASA or Dialog Semiconductor PLC integrated circuit in a product
+ *    or a software update for such product, must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -34,7 +34,7 @@
  * reduced modulo 2^256-38, and may possibly be in the range [2^256-38..2^256).
  * The scalar is a 256-bit integer where certain bits are hardcoded per specification.
  *
- * The implementation runs in constant time (556 013 cycles on ARM Cortex-M4,
+ * The implementation runs in constant time (548 873 cycles on ARM Cortex-M4,
  * assuming no wait states), and no conditional branches or memory access
  * pattern depend on secret data.
  */
