@@ -31,12 +31,14 @@ gcc linux_example.c x25519-cortex-m4-gcc.s -o linux_example -march=armv7-a
 ### Performance
 The library uses only 1892 bytes of code space in compiled form, uses 368 bytes of stack and runs one scalar multiplication in 548 873 cycles on Cortex-M4, which is speed record as far as I know. For a 64 MHz processor that means less than 9 ms per operation!
 
+There is also an even more optimized version that uses the FPU which runs in 476 275 cycles on ARM Cortex-M4F.
+
 ### Code
 The code is written in Keil's assembler format (`x25519-cortex-m4-keil.s`) but was converted to GCC's assembler syntax (`x25519-cortex-m4-gcc.s`) using the following regex command:
 `perl -0777 -pe 's/^;/\/\//g;s/(\s);/\1\/\//g;s/export/\.global/g;s/(([a-zA-Z0-9_]+) proc[\W\w]+?)endp/\1\.size \2, \.-\2/g;s/([a-zA-Z0-9_]+) proc/\t\.type \1, %function\n\1:/g;s/end//g;s/(\r?\n)(\d+)(\r?\n)/\1\2:\3/g;s/%b(\d+)/\1b/g;s/%f(\d+)/\1f/g;s/(frame[\W\w]+?\n)/\/\/\1/g;s/area \|([^\|]+)\|[^\n]*\n/\1\n/g;s/align /\.align /g;s/^/\t.syntax unified\n\t.thumb\n/' < x25519-cortex-m4-keil.s > x25519-cortex-m4-gcc.s`
 
 ### Security
-The implementation runs in constant time and uses a constant memory access pattern, regardless of the private key in order to protect against side channel attacks.
+The basic implementation runs in constant time and uses a constant memory access pattern, regardless of the private key in order to protect against side channel attacks. The FPU version however reads data from RAM in a non-constant pattern and therefore that version is only suited for embedded devices without data cache, such as Cortex-M4 and Cortex-M33.
 
 ### License
 The code is licensed under a 2-clause BSD license, with an extra exception for Nordic Semiconductor and Dialog Semiconductor devices.
