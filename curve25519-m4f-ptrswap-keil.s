@@ -959,7 +959,7 @@ loadm proc
 	endp
 
 ; in: *r0 = result, *r1 = scalar, *r2 = basepoint (all pointers may be unaligned)
-; cycles: 475 470
+; cycles: 475 469
 curve25519_scalarmult proc
 	export curve25519_scalarmult
 	
@@ -978,21 +978,19 @@ curve25519_scalarmult proc
 	orr r7,r7,#0x40000000
 	push {r0-r7}
 	frame address sp,72
-	movs r0,#0
-	push {r0}
-	frame address sp,76
+	mov r8,#0
 	
 	;ldm r1,{r0-r7}
 	mov r1,r10
 	bl loadm
 	
 	and r7,r7,#0x7fffffff
-	push {r0-r7}
+	push {r0-r8}
 	frame address sp,108
 	
 	movs r9,#1
 	umull r10,r11,r8,r8
-	mov r12,#0
+	mov r12,r8
 	push {r8,r10,r11,r12}
 	frame address sp,124
 	push {r9,r10,r11,r12}
@@ -1011,7 +1009,7 @@ curve25519_scalarmult proc
 	
 	movs r0,#254
 	movs r3,#0
-	; 128 cycles so far
+	; 127 cycles so far
 0
 	; load scalar bit into r1
 	lsrs r1,r0,#5
@@ -1404,7 +1402,7 @@ curve25519_scalarmult proc
 	pop {r4-r11,pc}
 	
 	; 215 cycles after inversion
-	; in total for whole function 475 470 cycles theoretically
+	; in total for whole function 475 469 cycles theoretically
 	
 	endp
 
